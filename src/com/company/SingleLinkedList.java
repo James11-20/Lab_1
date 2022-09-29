@@ -139,6 +139,7 @@ import java.util.NoSuchElementException;
                 i++;
                 current.next = new node(data, current.next);
             }
+            size++;
             return current;
         }
         public node remove(int index){
@@ -160,6 +161,7 @@ import java.util.NoSuchElementException;
                 i++;
                 current.next=current.next.next;
             }
+            size--;
             return current;
         }
     }
