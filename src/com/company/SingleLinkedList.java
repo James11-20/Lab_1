@@ -8,9 +8,9 @@ import java.util.NoSuchElementException;
 
 
         public SingleLinkedList() {
-            size = 0;
-            head = null;
-            tail = null;
+           this.size = 0;
+           this.head = null;
+            this.tail = null;
 
         }
 
@@ -39,28 +39,23 @@ import java.util.NoSuchElementException;
                 node newNode = new node(data, null);
                 head = newNode;
                 tail = newNode;
-                size++;
             } else {
                 node newNode = new node(data, head);
                 head = newNode;
-                size++;
             }
+            size++;
             return head;
         }
 
         public void addLast(int data) {
+            node newNode = new node(data, null);
             if (size == 0) {
-                node newNode = new node(data, null);
                 head = newNode;
-                tail = newNode;
-                ++size;
             } else {
-                node newNode = new node(data, null);
                 tail.next = newNode;
-                tail = newNode;
-                ++size;
             }
-
+            tail = newNode;
+            ++size;
         }
 
         public node getFist() {
@@ -84,22 +79,30 @@ import java.util.NoSuchElementException;
         public void removeFirst() {
             if (size == 0) {
                 System.out.println("This List is empty");
-            } else {
+            }
+            else if(size == 1){
+                clear();
+            }
+            else {
                 head = head.next;
                 --size;
             }
         }
 
-        public void removeLast() {
+        public void removeLast() throws NoSuchElementException {
             if (size == 0) {
-                System.out.println("This List is empty");
-            } else {
+                throw new NoSuchElementException("This list is empty!");
+            }
+            else if (size == 1){
+                clear();
+            }
+            else {
                 node current = head;
                 while (current.next != tail) {
                     current = current.next;
                 }
-                tail = current;
                 current.next = null;
+                tail = current;
                 --size;
             }
         }
@@ -124,7 +127,7 @@ import java.util.NoSuchElementException;
         }
 
         public node add(int index, int data) {
-            if (size == 0) {
+            if (index == 0) {
                 return addFirst(data);
             }
             if (size == -1) {
@@ -137,12 +140,13 @@ import java.util.NoSuchElementException;
             int i = 0;
             while (i == index - 1) {
                 i++;
-                current.next = new node(data, current.next);
+                current = current.next;
             }
+            current = new node(data,current.next);
             size++;
             return current;
         }
-        public node remove(int index){
+        public node remove(int index) throws NoSuchElementException{
             if (size == 0) {
                 throw new NoSuchElementException("This List is empty");
             }
@@ -159,8 +163,9 @@ import java.util.NoSuchElementException;
             int i = 0;
             while (i== index-1){
                 i++;
-                current.next=current.next.next;
+                current=current.next;
             }
+            current.next= current.next.next;
             size--;
             return current;
         }
